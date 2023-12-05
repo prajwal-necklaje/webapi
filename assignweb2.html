@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON Manipulation Example</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    button {
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>JSON Manipulation Example</h1>
+
+  <table id="data-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Some Field</th>
+        <th>Another Field</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Data will be inserted here dynamically -->
+    </tbody>
+  </table>
+
+  <script>
+    // Assume jsonData is the JSON data retrieved from the website
+    let jsonData = [
+      { "id": 1, "someField": "Value1", "anotherField": "AnotherValue1" },
+      { "id": 2, "someField": "Value2", "anotherField": "AnotherValue2" },
+      { "id": 3, "someField": "Value3", "anotherField": "AnotherValue3" }
+    ];
+
+    // Function to edit a specific row in memory
+    function editRowInMemory(rowId, newValue) {
+      // Find the row by ID and update the value
+      let rowToEdit = jsonData.find(row => row.id === rowId);
+      if (rowToEdit) {
+        rowToEdit.someField = newValue;
+      }
+      displayData();
+    }
+
+    // Function to delete a specific row in memory
+    function deleteRowInMemory(rowId) {
+      // Filter out the row with the specified ID
+      jsonData = jsonData.filter(row => row.id !== rowId);
+      displayData();
+    }
+
+    // Function to display the current JSON data in the table
+    function displayData() {
+      const tableBody = document.querySelector('#data-table tbody');
+      tableBody.innerHTML = ''; // Clear existing rows
+
+      jsonData.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${row.id}</td>
+          <td>${row.someField}</td>
+          <td>${row.anotherField}</td>
+          <td>
+            <button onclick="editRowInMemory(${row.id}, 'New Value')">Edit</button>
+            <button onclick="deleteRowInMemory(${row.id})">Delete</button>
+          </td>
+        `;
+        tableBody.appendChild(tr);
+      });
+    }
+
+    // Initial display of data
+    displayData();
+  </script>
+
+</body>
+</html>
