@@ -1,28 +1,23 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-/* Modal Styles */
-/* General Styles */
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f8f9fa; /* Light gray background */
+  background-color: #f8f9fa;
 }
 
-/* Header Styles */
 header {
-  background-color: #343a40; /* Dark gray header */
+  background-color: #343a40;
   color: #fff;
   padding: 10px;
   text-align: center;
 }
 
-/* Search Styles */
 label {
   display: block;
   margin-top: 20px;
@@ -31,20 +26,19 @@ label {
 #search {
   padding: 8px;
   margin-right: 10px;
-  border: 1px solid #ced4da; /* Gray border */
+  border: 1px solid #ced4da;
   border-radius: 4px;
 }
 
 .search-icon {
   padding: 8px;
-  background-color: #007bff; /* Blue button */
+  background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
-/* Table Styles */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -52,34 +46,31 @@ table {
 }
 
 th, td {
-  border: 1px solid #ced4da; /* Gray border */
+  border: 1px solid #ced4da;
   padding: 12px;
   text-align: left;
 }
 
 th {
-  background-color: #007bff; /* Blue header */
+  background-color: #007bff;
   color: #fff;
 }
 
-/* Pagination Styles */
 #paginationInfo {
   margin-top: 10px;
   display: inline-block;
 }
 
-/* Button Styles */
 button {
   padding: 10px;
   margin: 5px;
   cursor: pointer;
-  background-color: #007bff; /* Blue button */
+  background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 4px;
 }
 
-/* Modal Styles */
 #editModal {
   display: none;
   position: fixed;
@@ -95,15 +86,14 @@ button {
 
 #editModalContent {
   background: #fff;
-  padding: 30px; /* Increased padding */
+  padding: 30px;
   border-radius: 8px;
-  max-width: 600px; /* Increased maximum width */
+  max-width: 600px;
   width: 100%;
   box-sizing: border-box;
   text-align: center;
 }
 
-/* Form Styles */
 form {
   margin-top: 20px;
   display: flex;
@@ -111,22 +101,6 @@ form {
   align-items: center;
 }
 
-label {
-  margin-bottom: 10px;
-}
-
-input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  box-sizing: border-box;
-}
-
-button {
-  width: 50%; /* Adjust button width */
-}
-
-/* Responsive Styles */
 @media only screen and (max-width: 600px) {
   th, td {
     font-size: 14px;
@@ -135,8 +109,7 @@ button {
   #editModalContent {
     padding: 20px;
   }
-  
-  /* Adjust other styles for smaller screens */
+
   #paginationInfo {
     display: block;
     text-align: center;
@@ -150,7 +123,6 @@ button {
 </style>
 <title>Admin Dashboard</title>
 </head>
-
 <body>
 <div>
 <label for="search">Search:</label>
@@ -186,7 +158,6 @@ button {
 <button onclick="deleteSelected()">Delete Selected</button>
 </div>
 
-<!-- Form fields for editing user data -->
 <div id="editModal" style="display: none;">
 <label for="editName">Name:</label>
 <input type="text" id="editName">
@@ -203,302 +174,23 @@ button {
 
 <script>
 let currentPage = 1;
-let pageSize = 10; // Number of items per page
+let pageSize = 10;
 let totalPages = 1;
 let selectedRows = [];
 
 let data = [
-{
-"id": 1,
-"name": "Aaron Miles",
-"email": "aaron@mailinator.com",
-"role": "member"
-},
-{
-"id": 2,
-"name": "Aishwarya Naik",
-"email": "aishwarya@mailinator.com",
-"role": "member"
-},
-{
-"id": 3,
-"name": "Arvind Kumar",
-"email": "arvind@mailinator.com",
-"role": "admin"
-},
-{
-"id": 4,
-"name": "Caterina Binotto",
-"email": "caterina@mailinator.com",
-"role": "member"
-},
-{
-"id": 5,
-"name": "Chetan Kumar",
-"email": "chetan@mailinator.com",
-"role": "member"
-},
-{
-"id": 6,
-"name": "Jim McClain",
-"email": "jim@mailinator.com",
-"role": "member"
-},
-{
-"id": 7,
-"name": "Mahaveer Singh",
-"email": "mahaveer@mailinator.com",
-"role": "member"
-},
-{
-"id": 8,
-"name": "Rahul Jain",
-"email": "rahul@mailinator.com",
-"role": "admin"
-},
-{
-"id": 9,
-"name": "Rizan Khan",
-"email": "rizan@mailinator.com",
-"role": "member"
-},
-{
-"id": 10,
-"name": "Sarah Potter",
-"email": "sarah@mailinator.com",
-"role": "admin"
-},
-{
-"id": 11,
-"name": "Keshav Muddaiah",
-"email": "keshav@mailinator.com",
-"role": "member"
-},
-{
-"id": 12,
-"name": "Nita Ramesh",
-"email": "nita@mailinator.com",
-"role": "member"
-},
-{
-"id": 13,
-"name": "Julia Hunstman",
-"email": "julia@mailinator.com",
-"role": "member"
-},
-{
-"id": 14,
-"name": "Juan Alonso",
-"email": "juan@mailinator.com",
-"role": "admin"
-},
-{
-"id": 15,
-"name": "Gabriel Montoya",
-"email": "gabriel@mailinator.com",
-"role": "admin"
-},
-{
-"id": 16,
-"name": "Beatrice Iglesias",
-"email": "beatrice@mailinator.com",
-"role": "admin"
-},
-{
-"id": 17,
-"name": "Sarah Symms",
-"email": "sarah.s@mailinator.com",
-"role": "admin"
-},
-{
-"id": 18,
-"name": "Patrick Pinheiro",
-"email": "patrick@mailinator.com",
-"role": "admin"
-},
-{
-"id": 19,
-"name": "Anand Patel",
-"email": "anand@mailinator.com",
-"role": "member"
-},
-{
-"id": 20,
-"name": "Kishore Kalburgi",
-"email": "kishore@mailinator.com",
-"role": "member"
-},
-{
-"id": 21,
-"name": "Rebecca Norris",
-"email": "rebecca@mailinator.com",
-"role": "member"
-},
-{
-"id": 22,
-"name": "Özgür Başak",
-"email": "ozgur@mailinator.com",
-"role": "member"
-},
-{
-"id": 23,
-"name": "Robin Andersen",
-"email": "robin@mailinator.com",
-"role": "member"
-},
-{
-"id": 24,
-"name": "Nandini Kumar",
-"email": "nandini@mailinator.com",
-"role": "member"
-},
-{
-"id": 25,
-"name": "Nikita Smith",
-"email": "nikita@mailinator.com",
-"role": "member"
-},
-{
-"id": 26,
-"name": "Colton Doe",
-"email": "colton@mailinator.com",
-"role": "member"
-},
-{
-"id": 27,
-"name": "Alain Senna",
-"email": "alain@mailinator.com",
-"role": "member"
-},
-{
-"id": 28,
-"name": "Ashwin Jain",
-"email": "ashwin@mailinator.com",
-"role": "member"
-},
-{
-"id": 29,
-"name": "Seema Bhatt",
-"email": "seema@mailinator.com",
-"role": "member"
-},
-{
-"id": 30,
-"name": "Kayla Scarpinski",
-"email": "kayla@mailinator.com",
-"role": "member"
-},
-{
-"id": 31,
-"name": "Ajay Ghosh",
-"email": "ajay@mailinator.com",
-"role": "member"
-},
-{
-"id": 32,
-"name": "Chris Lindberg",
-"email": "chris@mailinator.com",
-"role": "member"
-},
-{
-"id": 33,
-"name": "Christina Mourujärvi",
-"email": "christina@mailinator.com",
-"role": "member"
-},
-{
-"id": 34,
-"name": "Mikhail Bill",
-"email": "mikhail@mailinator.com",
-"role": "member"
-},
-{
-"id": 35,
-"name": "Eino Göregen",
-"email": "eino@mailinator.com",
-"role": "member"
-},
-{
-"id": 36,
-"name": "Zachariah Johansson",
-"email": "zacharaiah@mailinator.com",
-"role": "member"
-},
-{
-"id": 37,
-"name": "Aimaan Mohammed",
-"email": "aimaan@mailinator.com",
-"role": "admin"
-},
-{
-"id": 38,
-"name": "Aika Tsunoda",
-"email": "aika@mailinator.com",
-"role": "member"
-},
-{
-"id": 39,
-"name": "Kimiko Minamoto",
-"email": "kimiko@mailinator.com",
-"role": "member"
-},
-{
-"id": 40,
-"name": "Alyona Baginskaite",
-"email": "alyona@mailinator.com",
-"role": "member"
-},
-{
-"id": 41,
-"name": "Anirudh Mukherjee",
-"email": "anirudh@mailinator.com",
-"role": "member"
-},
-{
-"id": 42,
-"name": "Alyona Gov",
-"email": "alyonagov@mailinator.com",
-"role": "member"
-},
-{
-"id": 43,
-"name": "Robin Singh",
-"email": "robin@mailinator.com",
-"role": "member"
-},
-{
-"id": 44,
-"name": "Vijay Vasudevan",
-"email": "vijayv@mailinator.com",
-"role": "member"
-},
-{
-"id": 45,
-"name": "Steve Smith",
-"email": "steve@mailinator.com",
-"role": "member"
-},
-{
-"id": 46,
-"name": "Anirudh Banerjee",
-"email": "anirudhb@mailinator.com",
-"role": "member"
-}
-];
-
-// ...
+  //data array
+  ];
 
 let currentPage = 1;
-let pageSize = 10; // Number of items per page
+let pageSize = 10;
 let totalPages = 1;
 let selectedRows = [];
-
-// ...
 
 async function renderTable() {
   const searchTerm = document.getElementById('search').value.toLowerCase();
   const tableBody = document.getElementById('userTableBody');
-  tableBody.innerHTML = ''; // Clear existing rows
+  tableBody.innerHTML = '';
 
   let filteredData = data;
 
@@ -512,7 +204,6 @@ async function renderTable() {
 
   totalPages = Math.ceil(filteredData.length / pageSize);
 
-  // Adjust the filtered data based on the current page
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
   const displayedData = filteredData.slice(startIndex, endIndex);
@@ -537,65 +228,59 @@ async function renderTable() {
 }
 
 function updatePaginationInfo() {
-const paginationInfo = document.getElementById('paginationInfo');
-paginationInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+  const paginationInfo = document.getElementById('paginationInfo');
+  paginationInfo.textContent = `Page ${currentPage} of ${totalPages}`;
 }
 
 async function search() {
-// Implement search functionality
-const searchTerm = document.getElementById('search').value.toLowerCase();
-console.log('Search Term:', searchTerm);
+  const searchTerm = document.getElementById('search').value.toLowerCase();
+  console.log('Search Term:', searchTerm);
 
-const filteredData = data.filter(user =>
-user.name.toLowerCase().includes(searchTerm) ||
-user.email.toLowerCase().includes(searchTerm) ||
-user.role.toLowerCase().includes(searchTerm)
-);
-console.log('Filtered Data:', filteredData);
+  const filteredData = data.filter(user =>
+    user.name.toLowerCase().includes(searchTerm) ||
+    user.email.toLowerCase().includes(searchTerm) ||
+    user.role.toLowerCase().includes(searchTerm)
+  );
+  console.log('Filtered Data:', filteredData);
 
-renderTable();
+  renderTable();
 }
 
 function navigateToPage(page) {
-totalPages = Math.ceil(data.length / pageSize);
+  totalPages = Math.ceil(data.length / pageSize);
 
-if (page < 1) {
-currentPage = 1;
-} else if (page > totalPages) {
-currentPage = totalPages;
-} else {
-currentPage = page;
-}
+  if (page < 1) {
+    currentPage = 1;
+  } else if (page > totalPages) {
+    currentPage = totalPages;
+  } else {
+    currentPage = page;
+  }
 
-renderTable();
+  renderTable();
 }
 
 function editRow(userId) {
   try {
     const userData = data.find(user => user.id === userId);
 
-    // Populate the form fields with user data
     document.getElementById('editName').value = userData.name;
     document.getElementById('editEmail').value = userData.email;
     document.getElementById('editRole').value = userData.role;
 
-    // Set the userId as a data attribute on the save button
     const saveButton = document.querySelector('.save');
     saveButton.dataset.userId = userId;
 
-    // Display the modal
     const editModal = document.getElementById('editModal');
     editModal.style.display = 'block';
 
-    // Close the modal when the close button is clicked
     const closeModalButton = editModal.querySelector('.close-modal');
     closeModalButton.addEventListener('click', () => {
       editModal.style.display = 'none';
-      clearSelectedRows(); // Clear the selected rows when closing the modal
+      clearSelectedRows();
     });
   } catch (error) {
     console.error('Error fetching user data for editing:', error);
-    // Handle the error, show a message to the user, etc.
   }
 }
 
@@ -603,16 +288,14 @@ function save() {
   try {
     console.log('Save function called');
 
-    // Get edited values
     const editedName = document.getElementById('editName').value;
     const editedEmail = document.getElementById('editEmail').value;
     const editedRole = document.getElementById('editRole').value;
 
     console.log('Edited Values:', editedName, editedEmail, editedRole);
 
-    // Update data in the 'data' array
-    const userId = getUserId(); // Implement this function to get the user ID
-    const userIndex = data.findIndex(user => user.id == userId); // Use loose equality to match string and integer
+    const userId = getUserId();
+    const userIndex = data.findIndex(user => user.id == userId);
 
     if (userIndex !== -1) {
       data[userIndex].name = editedName;
@@ -620,55 +303,40 @@ function save() {
       data[userIndex].role = editedRole;
     }
 
-    // Close the modal
     closeEditModal();
 
-    // Log the data to check if it's updated
     console.log('Updated Data:', data);
 
-    // Re-render the table
     renderTable();
 
-    // Log a message to check if the renderTable function is called
     console.log('Table Rendered');
   } catch (error) {
     console.error('Error in save function:', error);
   }
 }
 
-
 function getUserId() {
-  // Get the user ID from the data attribute on the save button
   const saveButton = document.querySelector('.save');
   return saveButton.dataset.userId;
 }
-
 
 function clearSelectedRows() {
   selectedRows = [];
 }
 
-
 function closeEditModal() {
-  // Close the modal
   const editModal = document.getElementById('editModal');
   editModal.style.display = 'none';
 
-  // Clear the selected rows when closing the modal
   clearSelectedRows();
 }
 
-
 function deleteRow(userId) {
-  // Ask for confirmation before deleting the row
   const confirmation = confirm('Are you sure you want to delete this user?');
   
   if (confirmation) {
     try {
-      // Filter out the user with the specified ID
       data = data.filter(user => user.id !== userId);
-
-      // Re-render the table with the updated data
       renderTable();
     } catch (error) {
       console.error('Error deleting row:', error);
@@ -676,32 +344,22 @@ function deleteRow(userId) {
   }
 }
 
-
 function deleteSelected() {
-  // Get all checkboxes with the class 'select-checkbox'
   const checkboxes = document.querySelectorAll('.select-checkbox');
-
-  // Array to store the IDs of selected users
   const selectedIds = [];
 
-  // Loop through checkboxes to find selected ones
   checkboxes.forEach((checkbox, index) => {
     if (checkbox.checked) {
-      // Extract the user ID from the corresponding row
       const userId = data[index].id;
       selectedIds.push(userId);
     }
   });
 
-  // Ask for confirmation before deleting selected users
   const confirmation = confirm('Are you sure you want to delete the selected users?');
 
   if (confirmation) {
     try {
-      // Filter out selected users from the data
       data = data.filter(user => !selectedIds.includes(user.id));
-
-      // Re-render the table with the updated data
       renderTable();
     } catch (error) {
       console.error('Error deleting selected users:', error);
@@ -710,29 +368,27 @@ function deleteSelected() {
 }
 
 function selectAllCheckbox() {
-    const checkboxes = document.querySelectorAll('.select-checkbox');
-    const selectAllCheckbox = document.getElementById('selectAll');
+  const checkboxes = document.querySelectorAll('.select-checkbox');
+  const selectAllCheckbox = document.getElementById('selectAll');
 
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = selectAllCheckbox.checked;
-        updateSelectedRows(checkbox.value, checkbox.checked);
-    });
+  checkboxes.forEach(checkbox => {
+    checkbox.checked = selectAllCheckbox.checked;
+    updateSelectedRows(checkbox.value, checkbox.checked);
+  });
 }
 
 function updateSelectedRows(userId, isChecked) {
-    if (isChecked) {
-        selectedRows.push(userId);
-    } else {
-        const index = selectedRows.indexOf(userId);
-        if (index !== -1) {
-            selectedRows.splice(index, 1);
-        }
+  if (isChecked) {
+    selectedRows.push(userId);
+  } else {
+    const index = selectedRows.indexOf(userId);
+    if (index !== -1) {
+      selectedRows.splice(index, 1);
     }
+  }
 }
 
-
-
-
-
-renderTable(); // Fetch and render data when the page loads
+renderTable();
 </script>
+</body>
+</html>
