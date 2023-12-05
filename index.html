@@ -486,38 +486,54 @@ let data = [
 }
 ];
 
+// ...
+
+let currentPage = 1;
+let pageSize = 10; // Number of items per page
+let totalPages = 1;
+let selectedRows = [];
+
+// ...
+
 async function renderTable() {
-const searchTerm = document.getElementById('search').value.toLowerCase();
-const tableBody = document.getElementById('userTableBody');
-tableBody.innerHTML = ''; // Clear existing rows
+  const searchTerm = document.getElementById('search').value.toLowerCase();
+  const tableBody = document.getElementById('userTableBody');
+  tableBody.innerHTML = ''; // Clear existing rows
 
-let filteredData = data;
+  let filteredData = data;
 
-if (searchTerm.trim() !== '') {
-filteredData = data.filter(user =>
-user.name.toLowerCase().includes(searchTerm) ||
-user.email.toLowerCase().includes(searchTerm) ||
-user.role.toLowerCase().includes(searchTerm)
-);
-}
+  if (searchTerm.trim() !== '') {
+    filteredData = data.filter(user =>
+      user.name.toLowerCase().includes(searchTerm) ||
+      user.email.toLowerCase().includes(searchTerm) ||
+      user.role.toLowerCase().includes(searchTerm)
+    );
+  }
 
-filteredData.forEach(user => {
-const row = document.createElement('tr');
-row.innerHTML = `
-<td><input type="checkbox" class="select-checkbox" onchange="updateSelectedRows(${user.id})"></td>
-<td>${user.id}</td>
-<td>${user.name}</td>
-<td>${user.email}</td>
-<td>${user.role}</td>
-<td>
-<button class="edit" onclick="editRow(${user.id})">Edit</button>
-<button class="delete" onclick="deleteRow(${user.id})">Delete</button>
-</td>
-`;
-tableBody.appendChild(row);
-});
+  totalPages = Math.ceil(filteredData.length / pageSize);
 
-updatePaginationInfo();
+  // Adjust the filtered data based on the current page
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
+  const displayedData = filteredData.slice(startIndex, endIndex);
+
+  displayedData.forEach(user => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td><input type="checkbox" class="select-checkbox" onchange="updateSelectedRows(${user.id})"></td>
+      <td>${user.id}</td>
+      <td>${user.name}</td>
+      <td>${user.email}</td>
+      <td>${user.role}</td>
+      <td>
+        <button class="edit" onclick="editRow(${user.id})">Edit</button>
+        <button class="delete" onclick="deleteRow(${user.id})">Delete</button>
+      </td>
+    `;
+    tableBody.appendChild(row);
+  });
+
+  updatePaginationInfo();
 }
 
 function updatePaginationInfo() {
